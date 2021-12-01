@@ -1,4 +1,4 @@
-(defvar *grade-db-csv* (cl-csv:read-csv #P"spring_grades2021.csv"))
+(defvar *grade-db-csv* nil)
 
 (defmacro stage-csv (name)
   "use name as: #Pfilename.csv"
