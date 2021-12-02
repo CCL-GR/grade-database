@@ -19,7 +19,10 @@
       nil))
 
 (defclass concept ()
-  ((concept-number
+  ((concept-name
+    :initarg :concept-name
+    :accessor name)
+   (concept-number
     :initarg :concept-number
     :accessor cnum)
    (current-score
