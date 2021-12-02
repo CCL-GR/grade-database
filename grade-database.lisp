@@ -3,10 +3,13 @@
 (defvar *names* nil) ;used to hold a place for names on occassion
 (defvar *scores* nil) ;same as grades, but scores
 (defvar *grade-db* nil) ;The database that holds all students
-(defvar *grade-db-file* "fall_grades2021.db")
+(defvar *grade-db-file* nil)
 (defvar *classes-held* (list nil))
 
 (defvar *class-dates* (list "2021-6-2" "2021-6-1" "2021-5-27" "2021-5-26" "2021-5-25"))
+
+(defmacro stage-db (name)
+  (setq *grade-db-file* name))
 
 (defun make-student (name class score grade pinyin)
   "creates a 'student object' to be the basis of the database"
