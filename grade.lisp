@@ -23,13 +23,16 @@
     :initarg :concept-number
     :accessor cnum)
    (current-score
-    :initarg nil
+    :initarg :current-score
     :initform 0
     :accessor score)
-   (max-score
-    :initarg nil
+   (possible-score
+    :initarg :possible-score
     :initform 4
-    :accessor max-score)))
+    :accessor possible-score)))
 
-;(defmethod raise-max-score (&optional (new-max-score 5))
-;  (setf (max-score concept) new-max-score))
+(defmethod (setf score) (new-score concept)
+  "This doesn't work yet"
+  (if (> new-score (possible-score concept))
+      (format t "Input not valid")
+      (setf (slot-value concept 'current-score) new-score)))
