@@ -25,14 +25,16 @@
    (current-score
     :initarg :current-score
     :initform 0
-    :accessor score)
+    :accessor current-score)
    (possible-score
     :initarg :possible-score
     :initform 4
     :accessor possible-score)))
 
-(defmethod (setf score) (new-score concept)
-  "This doesn't work yet"
-  (if (> new-score (possible-score concept))
-      (format t "Input not valid")
-      (setf (slot-value concept 'current-score) new-score)))
+(defmethod (setf current-score) (new-score (obj concept))
+  "Ensures setting scores higher than current possible maximum scores doesn't happen"
+  (if (> new-score (slot-value obj 'possible-score))
+      (progn
+        (format t "Reverting to maximum ~a" (slot-value obj 'possible-score))
+        (setf (slot-value obj 'current-score) (slot-value obj 'possible-score)))
+      (setf (slot-value obj 'current-score) new-score)))
