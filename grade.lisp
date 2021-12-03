@@ -48,7 +48,7 @@
 
 (defun generate-name (whose concept-number)
   "Creates a string representation of name and concept number to use for creating concept score names"
-  (concatenate 'string (list whose concept-number)))
+  (format nil "~a~a" whose concept-number))
 
 ;(defmacro create-concept (whose concept-number current-score possible-score)
 ; "This doesn't work because dynamically generating *x* needs to not use defvar, it's needs its own defvar"
