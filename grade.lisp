@@ -60,8 +60,3 @@
                                                    :concept-number (car score-set)
                                                    :current-score (cdr score-set)
                                                    :possible-score possible-score)))
-;(defmacro create-concept (whose concept-number current-score possible-score)
-; "This doesn't work because dynamically generating *x* needs to not use defvar, it's needs its own defvar"
-; `(defvar `#(generate-name ,,whose ,,concept-number)
-;    (make-instance
-;     'concept :concept-name "a" :concept-number ,concept-number :current-score ,current-score :possible-score ,possible-score)))
