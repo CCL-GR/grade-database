@@ -1,10 +1,10 @@
 (defclass gradebook ()
-  ((gradebook
+  ((set-of-grades
     :initarg nil
     :accessor gradebook)
-   (name
+   (student-name
     :initarg :name
-    :accessor student-name)
+    :accessor name)
    (grade-level
     :initarg nil
     :accessor grade-level)))
