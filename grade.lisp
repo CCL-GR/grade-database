@@ -21,7 +21,8 @@
 (defparameter *concept-names* (list "Graphing Proportional Relationships" "Constant of Proportionality" "Analyzing Proptional Relationship Graphs"
                                     "Constructing Relationship Graphs" "Straight Tax" "Simple Interest" "Added Costs" "Error Margins" "Sign Combination"
                                     "Integer Inverses" "Multiplication of Integers" "PEMDAS" "Multiple Representations of Rational Numbers" "Rational Operations"
-                                    "Rational PEMDAS"))
+                                    "Rational PEMDAS" "Simplification and Reduction" "Balancing Equations" "Adding Linear Equations"
+                                    "Simplifying Rational Linear Equations"))
 (defclass concept ()
   ((concept-name
     :initarg :concept-name
@@ -38,6 +39,9 @@
     :initform 4
     :accessor possible-score)))
 
+(defmacro get-concept-name (cnum)
+  `(nth ,cnum *concept-names*))
+
 (defmethod (setf current-score) (new-score (obj concept))
   "Ensures setting scores higher than current possible maximum scores doesn't happen"
   (if (> new-score (slot-value obj 'possible-score))
@@ -49,7 +53,13 @@
 (defun generate-name (whose concept-number)
   "Creates a string representation of name and concept number to use for creating concept score names"
   (format nil "~a~a" whose concept-number))
+  ;(format t "~a~a" whose concept-number))  Use one of these for formating as text depending on future dev
 
+(defun create-concept (score-set &optional (possible-score 4))
+  (defvar *staged-concept* (make-instance 'concept :concept-name (get-concept-name (car score-set))
+                                                   :concept-number (car score-set)
+                                                   :current-score (cdr score-set)
+                                                   :possible-score possible-score)))
 ;(defmacro create-concept (whose concept-number current-score possible-score)
 ; "This doesn't work because dynamically generating *x* needs to not use defvar, it's needs its own defvar"
 ; `(defvar `#(generate-name ,,whose ,,concept-number)
