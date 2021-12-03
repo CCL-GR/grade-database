@@ -56,7 +56,13 @@
   ;(format t "~a~a" whose concept-number))  Use one of these for formating as text depending on future dev
 
 (defun create-concept (score-set &optional (possible-score 4))
-  (defvar *staged-concept* (make-instance 'concept :concept-name (get-concept-name (car score-set))
-                                                   :concept-number (car score-set)
-                                                   :current-score (cdr score-set)
-                                                   :possible-score possible-score)))
+  "clobbers *staged-concept* and creates an object which obeys the grading rules of concept question quizzes"
+  (progn
+    (defvar *staged-concept* (make-instance 'concept :concept-name (get-concept-name (car score-set))
+                                                     :concept-number (car score-set)
+                                                     :possible-score possible-score))
+    (setf (current-score *staged-concept*) (second score-set))))
+
+(defmacro concept->grade (concept)
+  `(defvar *staged-grade* (make-instance 'grade :max-score 1
+                                        :score (/ (float (current-score ,concept)) (float (possible-score ,concept))))))
