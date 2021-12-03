@@ -18,6 +18,13 @@
       t
       nil))
 
+; Concept scores are for concept quizzes which have a max score of 4 in first test and 5 in next test
+; These are quizzes designed around mastery learning.  *concept-names* are the titles of the topics in
+; the quiz and each one is tested twice or more times for students to obtain full mastery of the material.
+; At certain points throughout the year, the mastery topics are consolidated into a single grade, and the
+; material starts over, at that point, *concept-names* will need to be rewritten or reentered.
+; TODO: get *concept-names* to be read in from a file on load
+
 (defparameter *concept-names* (list "Graphing Proportional Relationships" "Constant of Proportionality" "Analyzing Proptional Relationship Graphs"
                                     "Constructing Relationship Graphs" "Straight Tax" "Simple Interest" "Added Costs" "Error Margins" "Sign Combination"
                                     "Integer Inverses" "Multiplication of Integers" "PEMDAS" "Multiple Representations of Rational Numbers" "Rational Operations"
