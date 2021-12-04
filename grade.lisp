@@ -30,6 +30,9 @@
                                     "Integer Inverses" "Multiplication of Integers" "PEMDAS" "Multiple Representations of Rational Numbers" "Rational Operations"
                                     "Rational PEMDAS" "Simplification and Reduction" "Balancing Equations" "Adding Linear Equations"
                                     "Simplifying Rational Linear Equations"))
+(defvar *staged-concept* nil)
+(defvar *staged-grade* nil)
+
 (defclass concept ()
   ((concept-name
     :initarg :concept-name
