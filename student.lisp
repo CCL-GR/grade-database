@@ -26,11 +26,3 @@
     (setf (score *staged-student*) ,score)
     (setf (grades *staged-student*) ,grades)))
 
-(defun save-gradebook-to-db (gradebook filename)
-  "Saves gradebook to file TODO: Get this working"
-  (with-open-file (out filename
-                   :direction :output
-                   :if-exists :supersede)
-    (with-standard-io-syntax
-      (loop for stu in gradebook do
-      (print (grades stu) out)))))
