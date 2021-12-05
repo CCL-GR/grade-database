@@ -23,6 +23,12 @@
      (setf (set-of-grades *staged-gradebook-entry*) (grades ,student))
      (setf (grade-level *staged-gradebook-entry*) (grade-level ,student))))
 
+(defun add-student-to-gradebook (student)
+  "Adds a single student object to the gradebook"
+  (progn
+    (stage-gradebook-entry student)
+    (setf *gradebook* (cons *staged-gradebook-entry* *gradebook*))))
+
 (defun save-gradebook-to-db (gradebook filename)
   "Saves gradebook to file TODO: Get this working"
   (with-open-file (out filename
