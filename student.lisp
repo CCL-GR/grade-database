@@ -12,7 +12,7 @@
     :initarg :grades
     :accessor grades)
    (concept-scores
-    :initarg :concept-quiz
+    :initarg :concept-scores
     :accessor concept-scores)))
 
 (defvar *student-roster* (list "a" "b" "c" "d" "e" "f" "g" "h"))
@@ -31,3 +31,6 @@
     (setf (score *staged-student*) ,score)
     (setf (grades *staged-student*) ,grades)
     (setf (concept-scores *staged-student*) ,concept-scores)))
+
+(defmacro dump-concept-scores (student)
+  `(format t "~a" (concept-scores ,student)))
