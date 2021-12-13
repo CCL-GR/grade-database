@@ -78,7 +78,11 @@
                                         :score (/ (float (current-score ,concept)) (float (possible-score ,concept))))))
 
 (defmethod concept-p (num concept)
-  "returns t if a concept number exists"
+  "returns if the numbered concept exists, returns t"
   (if (eq num (cnum concept))
        t
        nil))
+
+(defmethod exists-concept-p (num scores)
+  "tells you if a cnum exists in a set of scores"
+  (loop for cnum in scores thereis (concept-p num cnum)))
