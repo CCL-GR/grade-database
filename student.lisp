@@ -38,7 +38,7 @@
                       (concept-scores ,student))))
 
 (defvar *staged-student-data* (list 'student "some-name" 7 100 '(5 5 5 5 5) '((0 5) (1 5) (2 5) (3 5) (4 5))))
-(defvar *staged-student-data-set* (list *staged-student-data* *staged-student-data* *staged-student-data*))
+(defvar *staged-student-data-set* (list *staged-student-data* *staged-student-data* *staged-student-data*)) ;currently fake data - check where it's used before shipping
 
 (defmacro instantiate-student (student-data)
   "takes a list of student data and creates a student object - list is to be SOP for creating/saving a student"

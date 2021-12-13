@@ -84,5 +84,5 @@
        nil))
 
 (defmethod exists-concept-p (num scores)
-  "tells you if a cnum exists in a set of scores"
+  "tells you if a cnum exists in a set of concepts"
   (loop for cnum in scores thereis (concept-p num cnum)))
