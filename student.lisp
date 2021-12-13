@@ -60,3 +60,12 @@
 (defun load-student-roster ()
   "takes in the data for the students and puts them in the roster"
   (setf *student-roster* (mapcar #'load-student *student-roster* *staged-student-data-set*)))
+
+(defmacro dump-student-data (student)
+  "takes in a student object and converts it to a list"
+  `(list 'student
+         (name ,student)
+         (grade-level ,student)
+         (score ,student)
+         (grades ,student)
+         (concept-scores ,student)))
