@@ -32,6 +32,6 @@
      (setf (set-of-grades *staged-gradebook-entry*) (cons (concept-quiz ,student) (grades ,student)))
      (setf (grade-level *staged-gradebook-entry*) (grade-level ,student))))
 
-(defmacro concept-score-entered-p (num)
-  "Checks if the concept score has been initialized/exists for the students by checking the first student"
-  `(exists-concept-p ,num (concept-scores (car (students *staged-gradebook-entry*)))))
+(defun concept-score-entered-p (num &optional (gradebook *staged-gradebook-entry*))
+  "returns t if all students in the gradebook have the concept-score listed, nil if one is missing it"
+  (not (loop for stu in (students gradebook) thereis (not (exists-concept-p num (concept-scores stu))))))
