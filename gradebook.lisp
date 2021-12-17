@@ -25,6 +25,7 @@
 (defvar *staged-gradebook-entry* (make-instance 'gradebook
                                                 :students (list *a* *b* *c*)
                                                 :grade-level 7))
+
 (defmacro stage-gradebook-entry (student)
   "mutates the gradebook entry to be a specific student object representation"
   `(progn
