@@ -11,7 +11,7 @@
 (defmacro stage-db (name)
   (setq *grade-db-file* name))
 
-(defun make-student (name class score grade pinyin)
+(defun make-student (name class score grade pinyin) ;class score grade pinyin)
   "creates a 'student object' to be the basis of the database"
   (list :name name :class class :score score :grade grade :attendance '(1 1) :pinyin pinyin))
 
