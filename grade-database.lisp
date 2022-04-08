@@ -176,6 +176,10 @@
       (random-item-from-list (present-students class))
       (getf (random-item-from-list (present-students class)) :name)))
 
+(defmacro ranstu (class)
+  "Helper for in class selecting name of a random student (who is present)"
+  `(format t "~a" (random-student-present-name ,class)))
+
 (defmacro get-class-average (class)
   "Returns the average for a class of students"
   `(/ (loop for students in (get-class ,class) sum (getf students :score)) (float (length (get-class ,class)))))
@@ -384,3 +388,6 @@ input"
   `(/ (- (average (get-student ,student :grade))
          (get-class-average (get-student ,student :class)))
       (class-stdev (get-student ,student :class))))
+
+(defun remove-student (name)
+  (remove (car (select (where :name name))) *grade-db*))
