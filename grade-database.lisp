@@ -11,9 +11,9 @@
 (defmacro stage-db (name)
   (setq *grade-db-file* name))
 
-(defun make-student (name class score grade pinyin) ;class score grade pinyin)
+(defun make-student (name class score grade comments) ;class score grade comments)
   "creates a 'student object' to be the basis of the database"
-  (list :name name :class class :score score :grade grade :attendance '(1 1) :pinyin pinyin))
+  (list :name name :class class :score score :grade grade :attendance '(1 1) :comments comments))
 
 (defun add-student (student) (push student *grade-db*)) ;Adds single stu
 
@@ -21,7 +21,7 @@
   "creates (list students) who pass selector-fn's boolean"
   (remove-if-not selector-fn *grade-db*))
 
-(defun where (&key name class score grade pinyin)
+(defun where (&key name class score grade comments)
   "Creates boolean of whether or not plist keys match provided search term"
   #'(lambda (student)
       (and
@@ -29,7 +29,7 @@
        (if class (equal (getf student :class) class) t)
        (if score (equal (getf student :score) score) t)
        (if grade (equal (getf student :grade) grade) t)
-       (if pinyin (equal (getf student :pinyin) pinyin) t))))
+       (if comments (equal (getf student :comments) comments) t))))
 
 (defun select-attribute (attr &optional (db *grade-db*))
   "Gets a plist of just the attributes for students in order"
@@ -51,7 +51,7 @@
       (with-standard-io-syntax
         (setf *grade-db* (read in))))))
 
-(defun update (selector-fn &key name class score grade pinyin)
+(defun update (selector-fn &key name class score grade comments)
   "NOTE: Clobbers a single value in the loaded database"
   (setf *grade-db*
         (mapcar
@@ -61,7 +61,7 @@
                (if class (setf (getf row :class) class))
                (if score (setf (getf row :score) score))
                (if grade (setf (getf row :grade) grade))
-               (if pinyin (setf (getf row :pinyin) pinyin)))
+               (if comments (setf (getf row :comments) comments)))
              row)
          *grade-db*)))
 
@@ -93,10 +93,10 @@
 
 (defmacro reset-plists ()
   "NOTE: Clobbers *grade-db*  Back to initialization form"
-  `(reorder-plists (list :name :class :score :grade :attendance :pinyin) *grade-db*))
+  `(reorder-plists (list :name :class :score :grade :attendance :comments) *grade-db*))
 
 (defmacro get-student (name attr)
-  "returns a single student's attribute - :grade, :class, :score, :pinyin, :name, anything"
+  "returns a single student's attribute - :grade, :class, :score, :comments, :name, anything"
   `(getf (car (select (where :name ,name))) ,attr))
 
 (defun make-additional-grade (name assignment-grade)
@@ -109,10 +109,11 @@
   "The prompt for the ADD-GRADES func"
   (or (parse-integer (prompt-read "Assignment Grade") :junk-allowed t) 0))
 
-(defun pinyin-add-grades ()
-  "Lets you add in grades using pinyin name - just convenient"
-  (loop (make-additional-grade-using-pinyin (prompt-read "Pinyin") (prompt-for-grade))
-        (if (not (y-or-n-p "another? [y/n]: ")) (return))))
+; Deprecated: Names are changing to be ename pname pairs
+;(defun comments-add-grades ()
+;  "Lets you add in grades using comments name - just convenient"
+;  (loop (make-additional-grade-using-comments (prompt-read "Comments") (prompt-for-grade))
+;        (if (not (y-or-n-p "another? [y/n]: ")) (return))))
 
 (defun add-grades ()
   "Loop to add multiple grades to database - Choose stu name, and grade to add in prompt"
@@ -126,7 +127,7 @@
    (or (parse-integer (prompt-read "Class Number") :junk-allowed t) 0)
    (or (parse-integer (prompt-read "Score") :junk-allowed t) 0)
    (or (parse-integer (prompt-read "Grade") :junk-allowed t) 0)
-   (prompt-read "Pinyin")))
+   (prompt-read "Comments")))
 
 (defun add-student-db ()
   "Loop for pushing multiple new students into database"
@@ -343,8 +344,8 @@ input"
       (format t "~a out of ~a students were present today" num-present (length (select selector-fn)))))
 
 (defmacro pname (Ename Pname)
-  "deprecated - appends a pinyin name to a 'student object'"
-  `(nconc (car (select (where :name ,Ename))) '(:pinyin ,Pname)))
+  "deprecated - appends a comments name to a 'student object'"
+  `(nconc (car (select (where :name ,Ename))) '(:comments ,Pname)))
 
 (defmacro get-grades (name)
   "Sets *grades* to a given student's grades NOTE: Deprecated, just a getter"
