@@ -390,4 +390,5 @@ input"
       (class-stdev (get-student ,student :class))))
 
 (defun remove-student (name)
-  (remove (car (select (where :name name))) *grade-db*))
+  "Removes a student from the database by name"
+  (setf *grade-db* (remove (car (select (where :name name))) *grade-db*)))
