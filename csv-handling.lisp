@@ -19,13 +19,13 @@
 (defmacro get-csv-name (coerced-csv)
   `(format nil "~a ~a" (get-csv-nth-word 1 ,coerced-csv) (get-csv-first-word ,coerced-csv)))
 
-(defmacro get-student-by-pinyin (pinyin attr)
-  `(getf (car (select (where :pinyin ,pinyin))) ,attr))
+;(defmacro get-student-by-pinyin (pinyin attr)
+;  `(getf (car (select (where :pinyin ,pinyin))) ,attr))
 
-(defun make-additional-grade-using-pinyin (pinyin assignment-grade)
-  (setf (get-student-by-pinyin pinyin :grade)
-        (cons assignment-grade
-              (get-student-by-pinyin pinyin :grade))))
+;(defun make-additional-grade-using-pinyin (pinyin assignment-grade)
+;  (setf (get-student-by-pinyin pinyin :grade)
+;        (cons assignment-grade
+;              (get-student-by-pinyin pinyin :grade))))
 
 (defmacro find-student-grades-by-csv (student)
   `(format nil "~a" (get-student (get-csv-name ,student) :grade)))
